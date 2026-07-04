@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Crypto Tracker</title>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex flex-col items-center p-6">
+    <h1 class="text-4xl font-bold mb-6">Crypto Price Tracker 💰</h1>
+    <form action="/coin" method ="post" class="flex gap-4">
+        <input type ="text" name ="coin" placeholder="Enter Coin Name" required class="px-4 py-2 rounded text-black ">
+        <button type ="submit" class="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600">Search</button>
+    </form>
+    <% if(error) {%>
+        <p class="text-red-500 mt-4"><%= error %></p>
+    <% } %>
+    
+    <% if(data) {%>
+        <div class="mt-10 bg-slate-800 p-6 rounded-xl shadow-lg w-80 text-center  ">
+            <img src="<%=data.image.small%>" alt="<%= data.name %>" class="mx-auto mb-4">
+            <h2 class="text-2xl font-bold mb-2"><%= data.name %></h2>
+            <p class="text-green-400 mt-2 text-lg">
+            Current Price: $<%= data.market_data.current_price.usd %>
+            </p>
+
+            <p class="text-gray-300 mt-2 text-lg">
+            Market Cap: $<%= data.market_data?.market_cap?.usd?.toLocaleString() %>
+            </p>            <p class="text-gray-300 mt-2  text-lg">24h Change: <span class="<%= data.market_data.price_change_percentage_24h > 0 ?'text-green-500' : 'text-red-500' %>"> 
+            <%= data.market_data.price_change_percentage_24h %> </span>
+            </p>
+
+
+
+        </div>
+    <% } %>
+  
+</body>
+</html>
